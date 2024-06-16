@@ -43,3 +43,16 @@ class TestListCategory:
         response = use_case.execute()
 
         assert response.data == []
+
+    def test_should_ListCategory_return_list_of_Category(
+        self,
+        mock_repository: CategoryRepository,
+        category: Category
+    ):
+        list_categories = [category]
+        mock_repository.list.return_value = list_categories
+        use_case = ListCategory(repository=mock_repository)
+
+        response = use_case.execute()
+
+        assert response.data == list_categories
