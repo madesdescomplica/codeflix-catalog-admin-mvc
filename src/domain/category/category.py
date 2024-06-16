@@ -28,3 +28,5 @@ class Category:
     def update_category(self, name, description):
         self.name = name
         self.description = description
+
+        self.validate()

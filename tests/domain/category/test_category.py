@@ -110,3 +110,12 @@ class TestUpdateCategory:
 
         assert category.name == updated_name
         assert category.description == updated_description
+
+    def test_Category_raise_exception_with_invalid_name(self):
+        category = Category(name=self.name, description=self.description)
+
+        with pytest.raises(ValueError, match="name can not be longer than 255 caracteres"):
+            category.update_category(
+                name=self.faker.sentence(nb_words=100),
+                description=self.faker.sentence()
+            )
