@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from uuid import UUID
 
+from src.application.category.exceptions import InvalidCategory
 from src.domain.category import Category, CategoryRepository
 
 
@@ -19,10 +20,13 @@ class CreateCategory:
     repository: CategoryRepository
 
     def execute(self, request: CreateCategoryRequest) -> CreateCategoryResponse:
-        category = Category(
-            name=request.name,
-            description=request.description,
-            is_active=request.is_active
-        )
+        try:
+            category = Category(
+                name=request.name,
+                description=request.description,
+                is_active=request.is_active
+            )
+        except ValueError as e:
+            raise InvalidCategory(e)
 
         return category.id

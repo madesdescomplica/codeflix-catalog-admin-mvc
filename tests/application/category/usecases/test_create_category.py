@@ -4,6 +4,7 @@ from uuid import UUID
 from faker import Faker
 import pytest
 
+from src.application.category.exceptions import InvalidCategory
 from src.application.category.usecases import (
     CreateCategory,
     CreateCategoryRequest,
@@ -32,3 +33,13 @@ class TestCreateCategory:
 
         assert category_id is not None
         assert isinstance(category_id, UUID)
+
+    def test_create_Category_with_invalid_data(self, mock_repository: CategoryRepository):
+        use_case = CreateCategory(repository=mock_repository)
+        request = CreateCategoryRequest(name="")
+
+        with pytest.raises(InvalidCategory, match="name can not be empty or null") as exc_info:
+            use_case.execute(request)
+
+        assert exc_info.type is InvalidCategory
+        assert str(exc_info.value) == "name can not be empty or null"
