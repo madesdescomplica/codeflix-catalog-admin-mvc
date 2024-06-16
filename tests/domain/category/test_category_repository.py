@@ -36,3 +36,11 @@ class TestCategoryRepository:
     ):
         with pytest.raises(NotImplementedError, match='Should implement method: save'):
             category_repository.save(category)
+
+    def test_should_CategoryRepository_raise_a_NotImplementedError_if_get_by_id_method_is_not_implemented(
+        self,
+        category_repository: CategoryRepository,
+        category: Category
+    ):
+        with pytest.raises(NotImplementedError, match='Should implement method: get_by_id'):
+            category_repository.get_by_id(category.id)
