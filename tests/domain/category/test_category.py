@@ -192,3 +192,14 @@ class TestEquality:
         category2 = Category(id=category_id, name="category1")
 
         assert category1 == category2
+
+    def test_Category_equality_of_different_classes(self):
+        class Dummy:
+            pass
+
+        common_id = uuid4()
+        category = Category(id=common_id, name=self.faker.word())
+        dummy = Dummy()
+        dummy.id = common_id
+
+        assert category != dummy
