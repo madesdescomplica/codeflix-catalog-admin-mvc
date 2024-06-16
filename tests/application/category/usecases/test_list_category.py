@@ -32,3 +32,14 @@ class TestListCategory:
         use_case.execute()
 
         assert mock_repository.list.called is True
+
+    def test_should_ListCategory_return_an_empty_list(
+        self,
+        mock_repository: CategoryRepository
+    ):
+        mock_repository.list.return_value = []
+        use_case = ListCategory(repository=mock_repository)
+
+        response = use_case.execute()
+
+        assert response.data == []
