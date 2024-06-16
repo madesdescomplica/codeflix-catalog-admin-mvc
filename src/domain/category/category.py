@@ -18,3 +18,6 @@ class Category:
 
         if len(self.name) > 255:
             raise ValueError("name can not be longer than 255 caracteres")
+
+    def __str__(self) -> str:
+        return f"{self.id} - {self.name} - {self.description} - {self.is_active}"

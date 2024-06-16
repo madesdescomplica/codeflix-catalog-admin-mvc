@@ -57,3 +57,13 @@ class TestCategory:
         assert category.name == self.name
         assert category.description == self.description
         assert category.is_active is False
+
+    def test_Category_return_the_response_of__str__method(self):
+        category = Category(
+            id=self.category_id,
+            name=self.name,
+            description=self.description,
+            is_active=False
+        )
+
+        assert str(category) == f"{category.id} - {category.name} - {category.description} - {category.is_active}"
