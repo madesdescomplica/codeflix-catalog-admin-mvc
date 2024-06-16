@@ -30,3 +30,10 @@ class TestCategory:
     def test_Category_name_must_have_less_than_255_characters(self):
         with pytest.raises(ValueError, match="name can not be longer than 255 caracteres"):
             Category(name=self.faker.sentence(nb_words=100))
+
+    def test_created_Category_with_default_values(self):
+        category = Category(name=self.name)
+
+        assert category.name == self.name
+        assert category.description == ""
+        assert category.is_active is True
