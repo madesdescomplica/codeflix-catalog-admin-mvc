@@ -88,3 +88,22 @@ class TestUpdateCategory:
         use_case.execute(request)
 
         assert category.description == updated_description
+
+    def test_should_UpdateCategory_updates_name_and_description(
+        self,
+        category: Category,
+        mock_repository: CategoryRepository
+    ):
+        updated_name = self.faker.word()
+        updated_description = self.faker.sentence()
+        use_case = UpdateCategory(repository=mock_repository)
+        request = UpdateCategoryRequest(
+            id=category.id,
+            name=updated_name,
+            description=updated_description
+        )
+
+        use_case.execute(request)
+
+        assert category.name == updated_name
+        assert category.description == updated_description
