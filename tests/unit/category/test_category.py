@@ -11,6 +11,7 @@ class TestCategory:
     category_id = uuid4()
     name = faker.word()
     description = faker.sentence()
+    is_active = faker.boolean()
 
     def test_Category_must_be_created_with_id_as_uuid4(self):
         category = Category(name=self.name)
@@ -50,33 +51,39 @@ class TestCategory:
             id=self.category_id,
             name=self.name,
             description=self.description,
-            is_active=False
+            is_active=self.is_active
         )
 
         assert category.id == self.category_id
         assert category.name == self.name
         assert category.description == self.description
-        assert category.is_active is False
+        assert category.is_active is self.is_active
 
     def test_Category_return_the_response_of__str__method(self):
         category = Category(
             id=self.category_id,
             name=self.name,
             description=self.description,
-            is_active=False
+            is_active=self.is_active
         )
 
-        assert str(category) == f"{category.id} - {category.name} - {category.description} - {category.is_active}"
+        assert str(category) == f"id: {self.category_id}, \
+            name: {self.name}, \
+            description: {self.description}, \
+            is_active: {self.is_active}"
 
     def test_Category_return_the_response_of__repr__method(self):
         category = Category(
             id=self.category_id,
             name=self.name,
             description=self.description,
-            is_active=False
+            is_active=self.is_active
         )
 
-        assert category.__repr__() == f"{category.id} - {category.name} - {category.description} - {category.is_active}"
+        assert category.__repr__() == f"id: {self.category_id}, \
+            name: {self.name}, \
+            description: {self.description}, \
+            is_active: {self.is_active}"
 
 class TestUpdateCategory:
     faker = Faker()
