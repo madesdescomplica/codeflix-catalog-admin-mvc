@@ -54,3 +54,13 @@ class TestDeleteCategory:
             use_case.execute(request)
 
         assert str(exc_info.value) == f"Category with id {request.id} not found"
+
+    def test_DeleteCategory_call_repository_with_delete_method(
+        self,
+        mock_repository: CategoryRepository,
+        category: Category
+    ):
+        use_case = DeleteCategory(mock_repository)
+        use_case.execute(DeleteCategoryRequest(id=category.id))
+
+        mock_repository.delete.assert_called_once_with(category.id)
