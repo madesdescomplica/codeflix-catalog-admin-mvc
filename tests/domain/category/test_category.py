@@ -8,7 +8,9 @@ from src.domain.category import Category
 
 class TestCategory:
     faker = Faker()
+    category_id = uuid4()
     name = faker.word()
+    description = faker.sentence()
 
     def test_Category_must_be_created_with_id_as_uuid4(self):
         category = Category(name=self.name)
@@ -42,3 +44,16 @@ class TestCategory:
         category = Category(name=self.name)
 
         assert category.is_active is True
+
+    def test_category_is_created_with_provided_values(self):
+        category = Category(
+            id=self.category_id,
+            name=self.name,
+            description=self.description,
+            is_active=False
+        )
+
+        assert category.id == self.category_id
+        assert category.name == self.name
+        assert category.description == self.description
+        assert category.is_active is False
