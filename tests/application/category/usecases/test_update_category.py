@@ -133,3 +133,15 @@ class TestUpdateCategory:
         use_case.execute(request)
 
         assert category.is_active is False
+
+    def test_should_UpdateCategory_call_repository_with_update_method(
+        self,
+        category: Category,
+        mock_repository: CategoryRepository
+    ):
+        use_case = UpdateCategory(repository=mock_repository)
+        request = UpdateCategoryRequest(id=uuid4())
+
+        use_case.execute(request)
+
+        mock_repository.update.assert_called_once_with(category)
