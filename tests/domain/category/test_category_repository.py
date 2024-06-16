@@ -60,3 +60,10 @@ class TestCategoryRepository:
     ):
         with pytest.raises(NotImplementedError, match='Should implement method: delete'):
             category_repository.delete(category.id)
+
+    def test_should_CategoryRepository_raise_a_NotImplementedError_if_list_method_is_not_implemented(
+        self,
+        category_repository: CategoryRepository
+    ):
+        with pytest.raises(NotImplementedError, match='Should implement method: list'):
+            category_repository.list()
