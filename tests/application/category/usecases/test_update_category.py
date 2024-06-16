@@ -75,3 +75,16 @@ class TestUpdateCategory:
 
         with pytest.raises(InvalidCategory, match="name can not be empty or null"):
             use_case.execute(request)
+
+    def test_should_UpdateCategory_updates_description(
+        self,
+        category: Category,
+        mock_repository: CategoryRepository
+    ):
+        updated_description = self.faker.sentence()
+        use_case = UpdateCategory(repository=mock_repository)
+        request = UpdateCategoryRequest(id=category.id, description=updated_description)
+
+        use_case.execute(request)
+
+        assert category.description == updated_description

@@ -36,6 +36,9 @@ class UpdateCategory:
             if request.name is not None:
                 current_name = request.name
 
+            if request.description is not None:
+                current_description = request.description
+
             category.update_category(
                 name=current_name,
                 description=current_description
