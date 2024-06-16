@@ -121,3 +121,15 @@ class TestUpdateCategory:
         use_case.execute(request)
 
         assert category.is_active is True
+
+    def test_should_UpdateCategory_deactivate_category(
+        self,
+        category: Category,
+        mock_repository: CategoryRepository
+    ):
+        use_case = UpdateCategory(repository=mock_repository)
+        request = UpdateCategoryRequest(id=category.id, is_active=False)
+
+        use_case.execute(request)
+
+        assert category.is_active is False
