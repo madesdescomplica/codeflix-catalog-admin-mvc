@@ -119,3 +119,12 @@ class TestUpdateCategory:
                 name=self.faker.sentence(nb_words=100),
                 description=self.faker.sentence()
             )
+
+    def test_Category_raise_exception_with_empty_name(self):
+        category = Category(name=self.name, description=self.description)
+
+        with pytest.raises(ValueError, match="name can not be empty or null"):
+            category.update_category(
+                name="",
+                description=self.faker.sentence()
+            )
