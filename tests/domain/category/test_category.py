@@ -137,3 +137,18 @@ class TestUpdateCategory:
                 name=None,
                 description=self.faker.sentence()
             )
+
+class TestActivateCategory:
+    faker = Faker()
+    name = faker.word()
+    description = faker.sentence()
+
+    def test_activate_an_inactive_Category(self):
+        category = Category(
+            name=self.name,
+            description=self.description,
+            is_active=False)
+
+        category.activate()
+
+        assert category.is_active is True
