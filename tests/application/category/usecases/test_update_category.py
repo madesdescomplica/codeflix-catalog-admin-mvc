@@ -107,3 +107,17 @@ class TestUpdateCategory:
 
         assert category.name == updated_name
         assert category.description == updated_description
+
+    def test_should_UpdateCategory_activate_category(
+        self,
+        category: Category,
+        mock_repository: CategoryRepository
+    ):
+        category.is_active = False
+
+        use_case = UpdateCategory(repository=mock_repository)
+        request = UpdateCategoryRequest(id=category.id, is_active=True)
+
+        use_case.execute(request)
+
+        assert category.is_active is True
