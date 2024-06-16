@@ -55,3 +55,17 @@ class TestCreateCategory:
         use_case.execute(request)
 
         assert mock_repository.save.called is True
+
+    def test_create_Category_do_not_call_repository_with_invalid_data(
+        self,
+        mock_repository: CategoryRepository
+    ):
+        use_case = CreateCategory(repository=mock_repository)
+        request = CreateCategoryRequest(name="")
+
+        with pytest.raises(InvalidCategory, match="name can not be empty or null") as exc_info:
+            use_case.execute(request)
+
+        assert exc_info.type is InvalidCategory
+        assert str(exc_info.value) == "name can not be empty or null"
+        assert mock_repository.save.called is False
