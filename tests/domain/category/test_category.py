@@ -14,3 +14,7 @@ class TestCategory:
     def test_Category_must_have_the_required_name(self):
         with pytest.raises(TypeError, match="missing 1 required positional argument: 'name'"):
             Category()
+
+    def test_Category_can_not_create_category_with_empty_name(self):
+        with pytest.raises(ValueError, match="name can not be empty or null"):
+            Category(name="")

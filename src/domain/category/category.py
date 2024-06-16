@@ -9,3 +9,9 @@ class Category:
     is_active: bool = True
     id: UUID = field(default_factory=uuid4)
 
+    def __post_init__(self):
+        self.validate()
+
+    def validate(self):
+        if not self.name:
+            raise ValueError("name can not be empty or null")
