@@ -91,3 +91,12 @@ class TestUpdateCategory:
 
         assert category.name == updated_name
         assert category.description == self.description
+
+    def test_Category_update_description(self):
+        updated_description = self.faker.sentence()
+        category = Category(name=self.name, description=self.description)
+
+        category.update_category(name=self.name, description=updated_description)
+
+        assert category.name == self.name
+        assert category.description == updated_description
