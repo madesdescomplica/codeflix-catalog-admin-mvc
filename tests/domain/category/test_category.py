@@ -18,3 +18,7 @@ class TestCategory:
     def test_Category_can_not_create_category_with_empty_name(self):
         with pytest.raises(ValueError, match="name can not be empty or null"):
             Category(name="")
+
+    def test_Category_can_not_create_category_with_null_name(self):
+        with pytest.raises(ValueError, match="name can not be empty or null"):
+            Category(name=None)
