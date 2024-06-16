@@ -15,3 +15,6 @@ class Category:
     def validate(self):
         if not self.name:
             raise ValueError("name can not be empty or null")
+
+        if len(self.name) > 255:
+            raise ValueError("name can not be longer than 255 caracteres")

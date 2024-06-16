@@ -22,3 +22,7 @@ class TestCategory:
     def test_Category_can_not_create_category_with_null_name(self):
         with pytest.raises(ValueError, match="name can not be empty or null"):
             Category(name=None)
+
+    def test_Category_name_must_have_less_than_255_characters(self):
+        with pytest.raises(ValueError, match="name can not be longer than 255 caracteres"):
+            Category(name=self.faker.sentence(nb_words=100))
