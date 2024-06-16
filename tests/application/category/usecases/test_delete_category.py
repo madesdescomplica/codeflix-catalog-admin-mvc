@@ -64,3 +64,14 @@ class TestDeleteCategory:
         use_case.execute(DeleteCategoryRequest(id=category.id))
 
         mock_repository.delete.assert_called_once_with(category.id)
+
+    def test_should_DeleteCategory_not_call_repository_with_delete_method_if_raise_exception(self):
+        mock_repository = create_autospec(CategoryRepository)
+        mock_repository.get_by_id.return_value = None
+        use_case = DeleteCategory(repository=mock_repository)
+        request = DeleteCategoryRequest(id=uuid4())
+
+        with pytest.raises(CategoryNotFound):
+            use_case.execute(request)
+
+        mock_repository.delete.assert_not_called()
