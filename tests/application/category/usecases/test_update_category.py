@@ -4,7 +4,7 @@ from uuid import uuid4
 from faker import Faker
 import pytest
 
-from src.application.category.exceptions import CategoryNotFound
+from src.application.category.exceptions import CategoryNotFound, InvalidCategory
 from src.application.category.usecases import UpdateCategory, UpdateCategoryRequest
 from src.domain.category import Category, CategoryRepository
 
@@ -64,3 +64,14 @@ class TestUpdateCategory:
         use_case.execute(request)
 
         assert category.name == updated_name
+
+    def test_should_UpdateCategory_raises_exception_when_name_is_invalid(
+        self,
+        category: Category,
+        mock_repository: CategoryRepository
+    ):
+        use_case = UpdateCategory(repository=mock_repository)
+        request = UpdateCategoryRequest(id=category.id, name="")
+
+        with pytest.raises(InvalidCategory, match="name can not be empty or null"):
+            use_case.execute(request)

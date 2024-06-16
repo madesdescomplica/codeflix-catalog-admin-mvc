@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from uuid import UUID
 
 from src.domain.category import CategoryRepository
-from ..exceptions import CategoryNotFound
+from ..exceptions import CategoryNotFound, InvalidCategory
 
 
 @dataclass
@@ -29,13 +29,16 @@ class UpdateCategory:
         if category is None:
             raise CategoryNotFound(f"Category with id {request.id} not found")
 
-        current_name = category.name
-        current_description = category.description
+        try:
+            current_name = category.name
+            current_description = category.description
 
-        if request.name is not None:
-            current_name = request.name
+            if request.name is not None:
+                current_name = request.name
 
-        category.update_category(
-            name=current_name,
-            description=current_description
-        )
+            category.update_category(
+                name=current_name,
+                description=current_description
+            )
+        except ValueError as e:
+            raise InvalidCategory(e)
