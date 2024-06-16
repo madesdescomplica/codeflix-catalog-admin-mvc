@@ -24,3 +24,7 @@ class Category:
 
     def __repr__(self) -> str:
         return f"{self.id} - {self.name} - {self.description} - {self.is_active}"
+
+    def update_category(self, name, description):
+        self.name = name
+        self.description = description

@@ -77,3 +77,17 @@ class TestCategory:
         )
 
         assert category.__repr__() == f"{category.id} - {category.name} - {category.description} - {category.is_active}"
+
+class TestUpdateCategory:
+    faker = Faker()
+    name = faker.word()
+    description = faker.sentence()
+
+    def test_Category_update_name(self):
+        updated_name = self.faker.word()
+        category = Category(name=self.name, description=self.description)
+
+        category.update_category(name=updated_name, description=self.description)
+
+        assert category.name == updated_name
+        assert category.description == self.description
