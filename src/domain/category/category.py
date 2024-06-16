@@ -21,3 +21,6 @@ class Category:
 
     def __str__(self) -> str:
         return f"{self.id} - {self.name} - {self.description} - {self.is_active}"
+
+    def __repr__(self) -> str:
+        return f"{self.id} - {self.name} - {self.description} - {self.is_active}"

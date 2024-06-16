@@ -67,3 +67,13 @@ class TestCategory:
         )
 
         assert str(category) == f"{category.id} - {category.name} - {category.description} - {category.is_active}"
+
+    def test_Category_return_the_response_of__repr__method(self):
+        category = Category(
+            id=self.category_id,
+            name=self.name,
+            description=self.description,
+            is_active=False
+        )
+
+        assert category.__repr__() == f"{category.id} - {category.name} - {category.description} - {category.is_active}"
