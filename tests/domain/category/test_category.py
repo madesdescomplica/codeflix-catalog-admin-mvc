@@ -162,3 +162,13 @@ class TestActivateCategory:
         category.activate()
 
         assert category.is_active is True
+
+    def test_deactivate_an_inactive_Category(self):
+        category = Category(
+            name=self.name,
+            description=self.description,
+            is_active=False)
+
+        category.deactivate()
+
+        assert category.is_active is False
