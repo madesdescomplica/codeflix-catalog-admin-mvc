@@ -182,3 +182,13 @@ class TestActivateCategory:
         category.deactivate()
 
         assert category.is_active is False
+
+class TestEquality:
+    faker = Faker()
+
+    def test_when_categories_have_same_id_they_are_equal(self):
+        category_id = uuid4()
+        category1 = Category(id=category_id, name="category1")
+        category2 = Category(id=category_id, name="category1")
+
+        assert category1 == category2
