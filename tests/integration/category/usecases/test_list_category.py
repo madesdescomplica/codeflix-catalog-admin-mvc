@@ -1,4 +1,5 @@
 from unittest.mock import create_autospec
+from uuid import uuid4
 
 from faker import Faker
 import pytest
@@ -50,6 +51,25 @@ class TestListCategory:
         category: Category
     ):
         list_categories = [category]
+        mock_repository.list.return_value = list_categories
+        use_case = ListCategory(repository=mock_repository)
+
+        response = use_case.execute()
+
+        assert response.data == list_categories
+
+    def test_should_ListCategory_return_list_of_many_categories(
+        self,
+        mock_repository: CategoryRepository,
+        category: Category,
+    ):
+        other_category = Category(
+            id=uuid4(),
+            name=self.faker.word(),
+            description=self.faker.sentence(),
+            is_active=self.faker.boolean()
+        )
+        list_categories =[category, other_category]
         mock_repository.list.return_value = list_categories
         use_case = ListCategory(repository=mock_repository)
 
