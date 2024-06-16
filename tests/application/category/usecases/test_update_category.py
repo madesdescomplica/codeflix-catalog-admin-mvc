@@ -51,3 +51,16 @@ class TestUpdateCategory:
             use_case.execute(request)
 
         assert str(exc_info.value) == f"Category with id {request.id} not found"
+
+    def test_should_UpdateCategory_updates_name(
+        self,
+        category: Category,
+        mock_repository: CategoryRepository
+    ):
+        updated_name = self.faker.word()
+        use_case = UpdateCategory(repository=mock_repository)
+        request = UpdateCategoryRequest(id=category.id, name=updated_name)
+
+        use_case.execute(request)
+
+        assert category.name == updated_name

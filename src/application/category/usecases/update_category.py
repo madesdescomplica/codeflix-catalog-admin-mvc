@@ -28,3 +28,14 @@ class UpdateCategory:
 
         if category is None:
             raise CategoryNotFound(f"Category with id {request.id} not found")
+
+        current_name = category.name
+        current_description = category.description
+
+        if request.name is not None:
+            current_name = request.name
+
+        category.update_category(
+            name=current_name,
+            description=current_description
+        )
