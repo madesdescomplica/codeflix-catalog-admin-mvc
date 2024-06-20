@@ -15,14 +15,17 @@ class CreateCategoryRequestSerializer(serializers.Serializer):
 class CreateCategoryResponseSerializer(serializers.Serializer):
     id = serializers.UUIDField()
 
+class DeleteCategoryRequestSerializer(serializers.Serializer):
+    id = serializers.UUIDField()
+
+class ListCategoryResponseSerializer(serializers.Serializer):
+    data = CategoryResponseSerializer(many=True)
+
 class RetrieveCategoryRequestSerializer(serializers.Serializer):
     id = serializers.UUIDField()
 
 class RetrieveCategoryResponseSerializer(serializers.Serializer):
     data = CategoryResponseSerializer(source='*')
-
-class ListCategoryResponseSerializer(serializers.Serializer):
-    data = CategoryResponseSerializer(many=True)
 
 class UpdateCategoryRequestSerializer(serializers.Serializer):
     id = serializers.UUIDField()
