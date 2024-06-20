@@ -116,7 +116,7 @@ class TestDjangoORMCategoryRepository:
         assert CategoryModel.objects.count() == 1
 
         category_db = repository.list()[0]
-        assert category_db.id == category.id
+        assert category_db.id == other_category.id
         assert category_db.name == other_category.name
         assert category_db.description == other_category.description
         assert category_db.is_active == other_category.is_active
