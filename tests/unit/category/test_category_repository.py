@@ -5,7 +5,7 @@ from uuid import uuid4
 from faker import Faker
 import pytest
 
-from src.domain.category import Category, CategoryRepository
+from domain.category import Category, CategoryRepository
 
 
 class TestCategoryRepository:
@@ -28,6 +28,13 @@ class TestCategoryRepository:
 
     def test_should_CategoryRepository_is_an_abstract_class(self):
         assert isabstract(CategoryRepository)
+
+    def test_should_CategoryRepository_raise_a_NotImplementedError_if_list_method_is_not_implemented(
+        self,
+        category_repository: CategoryRepository
+    ):
+        with pytest.raises(NotImplementedError, match='Should implement method: list'):
+            category_repository.list()
 
     def test_should_CategoryRepository_raise_a_NotImplementedError_if_save_method_is_not_implemented(
         self,
@@ -60,10 +67,3 @@ class TestCategoryRepository:
     ):
         with pytest.raises(NotImplementedError, match='Should implement method: delete'):
             category_repository.delete(category.id)
-
-    def test_should_CategoryRepository_raise_a_NotImplementedError_if_list_method_is_not_implemented(
-        self,
-        category_repository: CategoryRepository
-    ):
-        with pytest.raises(NotImplementedError, match='Should implement method: list'):
-            category_repository.list()

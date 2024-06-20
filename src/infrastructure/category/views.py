@@ -33,6 +33,17 @@ from infrastructure.category.serializers import (
 
 
 class CategoryViewSet(viewsets.ViewSet):
+    
+    def list(self, request: Request) -> Response:
+        usecase = ListCategory(repository=DjangoORMCategoryRepository())
+        response = usecase.execute()
+        serializer = ListCategoryResponseSerializer(instance=response)
+
+        return Response(
+            status=HTTP_200_OK,
+            data=serializer.data
+        )
+
     def create(self, request: Request) -> Response:
         serializer = CreateCategoryRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -64,16 +75,6 @@ class CategoryViewSet(viewsets.ViewSet):
         return Response(
             status=HTTP_200_OK,
             data=category_out.data
-        )
-
-    def list(self, request: Request) -> Response:
-        usecase = ListCategory(repository=DjangoORMCategoryRepository())
-        response = usecase.execute()
-        serializer = ListCategoryResponseSerializer(instance=response)
-
-        return Response(
-            status=HTTP_200_OK,
-            data=serializer.data
         )
 
     def update(self, request: Request, pk: None) -> Response:

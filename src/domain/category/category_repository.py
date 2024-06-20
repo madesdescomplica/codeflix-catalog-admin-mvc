@@ -7,6 +7,10 @@ from .category import Category
 class CategoryRepository(ABC):
 
     @abstractmethod
+    def list(self) -> list[Category]:
+        raise NotImplementedError('Should implement method: list')
+
+    @abstractmethod
     def save(self, category: Category) -> None:
         raise NotImplementedError('Should implement method: save')
 
@@ -21,7 +25,3 @@ class CategoryRepository(ABC):
     @abstractmethod
     def delete(self, id: UUID) -> None:
         raise NotImplementedError('Should implement method: delete')
-
-    @abstractmethod
-    def list(self) -> list[Category]:
-        raise NotImplementedError('Should implement method: list')
