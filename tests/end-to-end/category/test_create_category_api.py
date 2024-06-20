@@ -16,7 +16,7 @@ class TestCreateCategoryAPI:
     def category_repository(self) -> DjangoORMCategoryRepository:
         return DjangoORMCategoryRepository()
 
-    def test_should_CategotyViewSet_return_400_if_payload_is_invalid(self):
+    def test_should_CreateCategoryAPI_return_400_if_payload_is_invalid(self):
         url = "/api/categories/"
         response = APIClient().post(
             url,
@@ -31,7 +31,7 @@ class TestCreateCategoryAPI:
             "name": ["This field may not be blank."]
         }
 
-    def test_should_CategotyViewSet_create_category_and_return_201_if_payload_is_valid(
+    def test_should_CreateCategoryAPI_create_category_and_return_201_if_payload_is_valid(
         self,
         category_repository: DjangoORMCategoryRepository
     ):
