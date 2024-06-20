@@ -17,14 +17,17 @@ class DjangoORMCategoryRepository(CategoryRepository):
             is_active=category.is_active
         )
 
-    def get_by_id(self, id: UUID) -> Category:
-        category = self.category_model.objects.get(id=id)
-        return Category(
-            id=category.id,
-            name=category.name,
-            description=category.description,
-            is_active=category.is_active
-        )
+    def get_by_id(self, id: UUID) -> Category | None:
+        try:
+            category = self.category_model.objects.get(id=id)
+            return Category(
+                id=category.id,
+                name=category.name,
+                description=category.description,
+                is_active=category.is_active
+            )
+        except self.category_model.DoesNotExist:
+            return None
 
     def list(self) -> list[Category]:
         categories = self.category_model.objects.all()
