@@ -10,7 +10,7 @@ from src.domain.category import Category
 
 
 @pytest.mark.django_db
-class TestRetrieveAPI:
+class TestRetrieveCategoryAPI:
     faker = Faker()
 
     @pytest.fixture
@@ -31,19 +31,19 @@ class TestRetrieveAPI:
     def category_repository(self) -> DjangoORMCategoryRepository:
         return DjangoORMCategoryRepository()
 
-    def test_should_RetrieveAPI_return_400_if_id_is_not_valid(self):
+    def test_should_RetrieveCategoryAPI_return_400_if_id_is_not_valid(self):
         url = "/api/categories/invalid_id/"
         response = APIClient().get(url)
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-    def test_should_RetrieveAPI_return_404_when_category_not_exists(self):
+    def test_should_RetrieveCategoryAPI_return_404_when_category_not_exists(self):
         url = f"/api/categories/{uuid4()}/"
         response = APIClient().get(url)
 
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
-    def test_should_RetrieveAPI_return_category_if_exists(
+    def test_should_RetrieveCategoryAPI_return_category_if_exists(
         self,
         category_movie: Category,
         category_documentary: Category,

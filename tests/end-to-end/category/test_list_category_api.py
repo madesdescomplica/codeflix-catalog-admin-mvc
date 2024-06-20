@@ -10,7 +10,7 @@ from infrastructure.category.repository import DjangoORMCategoryRepository
 
 
 @pytest.mark.django_db
-class TestListAPI:
+class TestListCategoryAPI:
     faker = Faker()
 
     @pytest.fixture

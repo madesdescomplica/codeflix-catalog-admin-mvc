@@ -23,3 +23,9 @@ class RetrieveCategoryResponseSerializer(serializers.Serializer):
 
 class ListCategoryResponseSerializer(serializers.Serializer):
     data = CategoryResponseSerializer(many=True)
+
+class UpdateCategoryRequestSerializer(serializers.Serializer):
+    id = serializers.UUIDField()
+    name = serializers.CharField(max_length=255, allow_blank=False)
+    description = serializers.CharField()
+    is_active = serializers.BooleanField()
