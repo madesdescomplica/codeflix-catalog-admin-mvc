@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from .models import Category
+from infrastructure.category.models import CategoryModel
 
 
 class CategoryAdmin(admin.ModelAdmin):
     pass
 
-admin.site.register(Category, CategoryAdmin)
+admin.site.register(CategoryModel, CategoryAdmin)

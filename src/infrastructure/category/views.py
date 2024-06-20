@@ -15,8 +15,8 @@ from src.application.category.usecases import (
     GetCategoryRequest,
     ListCategory
 )
-from .repository import DjangoORMCategoryRepository
-from .serializers import (
+from infrastructure.category.repository import DjangoORMCategoryRepository
+from infrastructure.category.serializers import (
     CreateCategoryRequestSerializer,
     CreateCategoryResponseSerializer,
     RetrieveCategoryRequestSerializer,

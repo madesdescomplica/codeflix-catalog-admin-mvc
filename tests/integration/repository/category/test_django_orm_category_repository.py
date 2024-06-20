@@ -1,7 +1,7 @@
 from faker import Faker
 import pytest
 
-from infrastructure.category.models import Category as CategoryModel
+from infrastructure.category.models import CategoryModel
 from infrastructure.category.repository import DjangoORMCategoryRepository
 from src.domain.category import Category
 

@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.test import APIClient
 
 from infrastructure.category.repository import DjangoORMCategoryRepository
-from src.domain.category.category import Category
+from src.domain.category import Category
 
 
 @pytest.mark.django_db
