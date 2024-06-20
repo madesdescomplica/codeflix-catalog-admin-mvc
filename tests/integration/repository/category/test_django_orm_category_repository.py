@@ -100,3 +100,23 @@ class TestDjangoORMCategoryRepository:
         assert category_db.name == category_updated.name
         assert category_db.description == category_updated.description
         assert category_db.is_active == category_updated.is_active
+
+    def test_delete_category_in_database(
+        self,
+        category: Category,
+        other_category: Category,
+        repository: DjangoORMCategoryRepository
+    ):
+        assert CategoryModel.objects.count() == 0
+        repository.save(category)
+        repository.save(other_category)
+        assert CategoryModel.objects.count() == 2
+
+        repository.delete(category.id)
+        assert CategoryModel.objects.count() == 1
+
+        category_db = repository.list()[0]
+        assert category_db.id == category.id
+        assert category_db.name == other_category.name
+        assert category_db.description == other_category.description
+        assert category_db.is_active == other_category.is_active
