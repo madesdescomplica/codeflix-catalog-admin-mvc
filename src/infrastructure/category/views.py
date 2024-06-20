@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import viewsets
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -21,6 +22,7 @@ from src.application.category.usecases import (
     UpdateCategoryRequest
 )
 from infrastructure.category.repository import DjangoORMCategoryRepository
+from infrastructure.category.schema_extensions import category_viewset_schema
 from infrastructure.category.serializers import (
     CreateCategoryRequestSerializer,
     CreateCategoryResponseSerializer,
@@ -31,9 +33,9 @@ from infrastructure.category.serializers import (
     UpdateCategoryRequestSerializer
 )
 
-
+@category_viewset_schema
 class CategoryViewSet(viewsets.ViewSet):
-    
+
     def list(self, request: Request) -> Response:
         usecase = ListCategory(repository=DjangoORMCategoryRepository())
         response = usecase.execute()
