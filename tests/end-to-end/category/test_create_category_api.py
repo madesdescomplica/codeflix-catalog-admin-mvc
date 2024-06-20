@@ -8,7 +8,7 @@ from rest_framework.test import APIClient
 class TestCreateCategoryAPI:
     faker = Faker()
 
-    def test_CategoryViewSet_return_400_if_payload_is_invalid(self):
+    def test_should_CategotyViewSet_return_400_when_payload_is_invalid(self):
         url = "/api/categories/"
         response = APIClient().post(
             url,

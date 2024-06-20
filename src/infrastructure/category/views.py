@@ -23,16 +23,6 @@ class CategoryViewSet(viewsets.ViewSet):
         serializer = CreateCategoryRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        request = CreateCategoryRequest(**serializer.validated_data)
-        use_case = CreateCategory(DjangoORMCategoryRepository())
-        output = use_case.execute(request)
-        output_serializer = CreateCategoryResponseSerializer(output)
-
-        return Response(
-            status=HTTP_201_CREATED,
-            data=output_serializer.data
-        )
-
     def list(self, request: Request) -> Response:
         usecase = ListCategory(repository=DjangoORMCategoryRepository())
         output = usecase.execute()
