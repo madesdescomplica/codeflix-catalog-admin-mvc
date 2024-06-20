@@ -20,3 +20,6 @@ class RetrieveCategoryRequestSerializer(serializers.Serializer):
 
 class RetrieveCategoryResponseSerializer(serializers.Serializer):
     data = CategoryResponseSerializer(source='*')
+
+class ListCategoryResponseSerializer(serializers.Serializer):
+    data = CategoryResponseSerializer(many=True)

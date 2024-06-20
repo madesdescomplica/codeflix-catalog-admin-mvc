@@ -20,7 +20,8 @@ from infrastructure.category.serializers import (
     CreateCategoryRequestSerializer,
     CreateCategoryResponseSerializer,
     RetrieveCategoryRequestSerializer,
-    RetrieveCategoryResponseSerializer
+    RetrieveCategoryResponseSerializer,
+    ListCategoryResponseSerializer
 )
 
 
@@ -60,18 +61,10 @@ class CategoryViewSet(viewsets.ViewSet):
 
     def list(self, request: Request) -> Response:
         usecase = ListCategory(repository=DjangoORMCategoryRepository())
-        output = usecase.execute()
-
-        categories = [
-            {
-                "id": str(category.id),
-                "name": category.name,
-                "description": category.description,
-                "is_active": category.is_active
-            } for category in output.data
-        ]
+        response = usecase.execute()
+        serializer = ListCategoryResponseSerializer(instance=response)
 
         return Response(
             status=HTTP_200_OK,
-            data=categories
+            data=serializer.data
         )
