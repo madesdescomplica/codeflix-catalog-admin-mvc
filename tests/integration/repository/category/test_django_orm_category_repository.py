@@ -48,11 +48,13 @@ class TestDjangoORMCategoryRepository:
     def test_get_category_in_database(
         self,
         category: Category,
+        other_category: Category,
         repository: DjangoORMCategoryRepository
     ):
         assert CategoryModel.objects.count() == 0
         repository.save(category)
-        assert CategoryModel.objects.count() == 1
+        repository.save(other_category)
+        assert CategoryModel.objects.count() == 2
 
         category_db = repository.get_by_id(category.id)
         assert category_db.id == category.id
@@ -73,3 +75,28 @@ class TestDjangoORMCategoryRepository:
 
         category_db = repository.list()
         assert category_db == [category, other_category]
+
+    def test_update_category_in_database(
+        self,
+        category: Category,
+        other_category: Category,
+        repository: DjangoORMCategoryRepository
+    ):
+        assert CategoryModel.objects.count() == 0
+        repository.save(category)
+        repository.save(other_category)
+        assert CategoryModel.objects.count() == 2
+
+        category_updated = Category(
+            id=category.id,
+            name=self.faker.word(),
+            description=self.faker.sentence(),
+            is_active=self.faker.boolean()
+        )
+
+        repository.update(category_updated)
+        category_db = repository.get_by_id(category.id)
+        assert category_db.id == category.id
+        assert category_db.name == category_updated.name
+        assert category_db.description == category_updated.description
+        assert category_db.is_active == category_updated.is_active
