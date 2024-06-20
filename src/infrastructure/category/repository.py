@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from uuid import UUID
 
 from src.domain.category import Category, CategoryRepository
-from infrastructure.category.models import Category as CategoryModel
+from .models import Category as CategoryModel
 
 
 @dataclass

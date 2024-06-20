@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from infrastructure.category.models import Category
+from .models import Category
 
 
 class CategoryAdmin(admin.ModelAdmin):
