@@ -1,14 +1,22 @@
+from uuid import UUID
 from faker import Faker
 import pytest
 from rest_framework import status
 from rest_framework.test import APIClient
+
+from infrastructure.category.repository import DjangoORMCategoryRepository
+from src.domain.category.category import Category
 
 
 @pytest.mark.django_db
 class TestCreateCategoryAPI:
     faker = Faker()
 
-    def test_should_CategotyViewSet_return_400_when_payload_is_invalid(self):
+    @pytest.fixture
+    def category_repository(self) -> DjangoORMCategoryRepository:
+        return DjangoORMCategoryRepository()
+
+    def test_should_CategotyViewSet_return_400_if_payload_is_invalid(self):
         url = "/api/categories/"
         response = APIClient().post(
             url,
@@ -22,3 +30,35 @@ class TestCreateCategoryAPI:
         assert response.data == {
             "name": ["This field may not be blank."]
         }
+
+    def test_should_CategotyViewSet_create_category_and_return_201_if_payload_is_valid(
+        self,
+        category_repository: DjangoORMCategoryRepository
+    ):
+        name = self.faker.word()
+        description = self.faker.sentence()
+        url = "/api/categories/"
+        response = APIClient().post(
+            url,
+            data={
+                "name": name,
+                "description": description
+            }
+        )
+
+        assert response.status_code == status.HTTP_201_CREATED
+        created_category_id = UUID(response.data["id"])
+
+        assert category_repository.get_by_id(created_category_id) == Category(
+            id=created_category_id,
+            name=name,
+            description=description
+        )
+
+        assert category_repository.list() == [
+            Category(
+                id=created_category_id,
+                name=name,
+                description=description
+            )
+        ]
